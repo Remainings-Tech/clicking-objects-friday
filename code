@@ -1,0 +1,67 @@
+import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((1200, 800))  
+pygame.display.set_caption("fish mouse input")
+
+xpos = 0
+ypos = 0
+mousePos = (xpos, ypos)
+chest = 1
+ticker = 0
+Pearlshell = 1  
+
+#;oad in the image and make transparent
+chestImg1 = pygame.image.load(r"C:\Users\802910\Desktop\chest1.jpg").convert_alpha()
+PearlshellImg = pygame.image.load(r"C:\Users\802910\Downloads\Screenshot_2025-03-14_085352-removebg-preview.png").convert_alpha()
+pygame.Surface.set_colorkey(PearlshellImg, [25, 0, 25])  
+pygame.Surface.set_colorkey(chestImg1, [255, 0, 255])  
+#load in the image and make transparent
+chestImg2 = pygame.image.load(r"C:\Users\802910\Desktop\chest2.jpg").convert_alpha()
+PearlshellImg2 = pygame.image.load(r"C:\Users\802910\Downloads\Screenshot_2025-03-14_085716-removebg-preview.png").convert_alpha()
+pygame.Surface.set_colorkey(chestImg2, [255, 0, 255])  
+pygame.Surface.set_colorkey(PearlshellImg2, [25, 0, 25])  
+
+#game loop
+
+while 1: #game loop########################################################
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+            
+        print(mousePos)  
+        
+        if event.type == pygame.MOUSEBUTTONDOWN:
+      
+            if 238 < mousePos[0] < 355 and 130 < mousePos[1] < 230:
+                chest = 2 if chest == 1 else 1 
+            
+        
+            if 538 < mousePos[0] < 718 and 25 < mousePos[1] < 344: 
+                Pearlshell = 2 if Pearlshell == 1 else 1 
+        if event.type == pygame.MOUSEMOTION:
+            mousePos = event.pos  
+
+    # Update/physics section----------------------
+    ticker += 1
+    if ticker >= 200: 
+        ticker = 0
+
+    # Render section------------------------------
+    screen.fill((0, 0, 180))  # Clear the screen
+    
+    # Draw 
+    if chest == 1:
+        screen.blit(chestImg1, (240, 140))
+    elif chest == 2:
+        screen.blit(chestImg2, (240, 140))
+    
+    if Pearlshell == 1:
+        screen.blit(PearlshellImg, (538, 140))
+    elif Pearlshell == 2:
+        screen.blit(PearlshellImg2, (538, 140))
+    
+    pygame.display.flip()  # Update the display
+
+# End of game loop
+pygame.quit()
